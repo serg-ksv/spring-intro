@@ -17,7 +17,7 @@ import spring.intro.model.User;
 public class AppConfig {
     @Bean
     public DataSource getDataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+        var dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost/spring_intro?serverTimezone=UTC");
         dataSource.setUsername("ksv");

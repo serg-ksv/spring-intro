@@ -40,6 +40,8 @@ public class UserDaoImpl implements UserDao {
         try (var session = sessionFactory.openSession()) {
             var query = session.createQuery("from User", User.class);
             return query.getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't retrieve users", e);
         }
     }
 }
