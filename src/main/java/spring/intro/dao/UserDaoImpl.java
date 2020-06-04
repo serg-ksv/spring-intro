@@ -36,6 +36,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User get(Long id) {
+        try (var session = sessionFactory.openSession()) {
+            var query = session.createQuery("from User where id = :id", User.class);
+            query.setParameter("id", id);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't retrieve user", e);
+        }
+    }
+
+    @Override
     public List<User> listUsers() {
         try (var session = sessionFactory.openSession()) {
             var query = session.createQuery("from User", User.class);
