@@ -3,33 +3,33 @@ package spring.intro.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import spring.intro.dto.UserResponseDto;
 import spring.intro.model.User;
 import spring.intro.service.UserService;
 
 @RestController
-@RequestMapping(value = "/user", method = RequestMethod.GET)
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public List<UserResponseDto> getAll() {
         return userService.listUsers().stream()
                 .map(this::getDtoFromUser)
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping("/{userId}")
+    @GetMapping("/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
         return getDtoFromUser(userService.get(userId));
     }
 
-    @RequestMapping("/inject")
+    @GetMapping("/inject")
     public void injectData() {
         var jackson = new User("Jackson", "jackson@mail.com", "1");
         var jason = new User("Jason", "jason@mail.com", "2");
